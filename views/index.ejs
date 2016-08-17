@@ -3,15 +3,15 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/6.1.19/browser.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   </head>
   <body>
     <h1><%= title %></h1>
     <p><h3><b>Debits and Credits</b></h3></p>
-    <label><b>transaction type</b></label><br/>
-    <input placeholder = "transaction"/>
-    <br/>
-    <label><b>amount</b></label><br/>
-    <input placeholder = "amount"/>
-    button
+
+    <div id = "root"></div>
+    <script src = "components/main.js" type = "text/babel"></script>
+
   </body>
 </html>
