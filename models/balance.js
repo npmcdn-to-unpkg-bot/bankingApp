@@ -8,8 +8,6 @@ let balanceSchema = new mongoose.Schema({
   amount:{type: Number, required: true}
 })
 
-
-
 const Balance = mongoose.model('Balance', balanceSchema)
 
 module.exports = Balance
