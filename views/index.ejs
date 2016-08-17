@@ -3,15 +3,18 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/6.1.19/browser.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://npmcdn.com/react@15.3.0/dist/react.js"></script>
+    <script src="https://npmcdn.com/react-dom@15.3.0/dist/react-dom.js"></script>
+    <script src="https://npmcdn.com/babel-core@5.8.38/browser.min.js"></script>
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p><h3><b>Debits and Credits</b></h3></p>
+    <div>
+      <h1><%= title %></h1>
+      <p><h3><b>Debits and Credits</b></h3></p>
 
-    <div id = "root"></div>
-    <script src = "components/main.js" type = "text/babel"></script>
-
+      <div id = "root"></div>
+      <script src="/components/main.js" type = "text/babel"></script>
+    </div>
   </body>
 </html>

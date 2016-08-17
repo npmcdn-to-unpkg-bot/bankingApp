@@ -4,8 +4,8 @@ const mongoose = require('mongoose');
 
 let balanceSchema = new mongoose.Schema({
   name: {type: String, required: true},
-  type:{type: Number},
-  amount:{type: Number}
+  type:{type: String, required: true},
+  amount:{type: Number, required: true}
 })
 
 
