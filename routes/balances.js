@@ -4,6 +4,26 @@ var router = express.Router();
 
 let Balance = require('../models/balance');
 
+//GET Balances
+router.get('/', (req, res) => {
+  Balance.find({}, (err, balances) => {
+    if(err) {
+      res.status(400).send(err);
+    } else {
+      res.send(balances);
+    }
+  })
+})
 
+router.post('/', (req, res) => {
+  Balance.create(req.body, (err, balance) => {
+    if(err) {
+      res.status(400).send(err);
+    } else {
+
+      res.send(balance);
+    }
+  })
+})
 
 module.exports = router;
