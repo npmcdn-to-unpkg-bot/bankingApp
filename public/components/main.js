@@ -61,9 +61,9 @@ const MainRender = React.createClass({
 //DisplayDATA---------------------------------------------------------------------------------
 
 const DisplayData = React.createClass({
-  // deleteOne(id) {
-  //   console.log('id',id);
-  // },
+  editOne() {
+    alert("edits should are not allowed in a banking app");
+  },
   render: function() {
     let arr = this.props.displayFinally.map(thing => {
       // console.log('thing:', thing);
@@ -74,7 +74,8 @@ const DisplayData = React.createClass({
                    <li><b>amount: </b>{thing.amount}</li>
                    <li><b>date created: </b>{thing.newTime}</li>
 
-                   <li><button className= "btn btn-danger btn-xs" onClick = {this.props.deleteOne.bind(null,thing._id)}>X</button></li>
+                   <li><button className= "btn btn-danger btn-xs" onClick = {this.props.deleteOne.bind(null,thing._id)}>X</button>
+                   <button className= "btn btn-primary btn-xs" onClick = {this.editOne}>edit</button></li>
                    <hr className = "style-one"/>
               </div>
     })
