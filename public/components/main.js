@@ -1,7 +1,6 @@
-// var uuid = require('uuid');
-
 const MainRender = React.createClass({
   getInitialState() {
+    this.getData();
     return {
       transactions: []
     }
@@ -12,7 +11,8 @@ const MainRender = React.createClass({
         return res.json();
       })
       .then(data => {
-        console.log(data);
+        // console.log(data);
+        this.setState({transactions : data})
       })
       .catch(err => {
         console.log('err:', err)
@@ -36,6 +36,9 @@ const MainRender = React.createClass({
       console.log('err', err);
     })
   },
+  deleteOne() {
+
+  },
   render: function() {
     return (
       <div>
@@ -49,15 +52,18 @@ const MainRender = React.createClass({
 //DisplayDATA---------------------------------------------------------------------------------
 
 const DisplayData = React.createClass({
+  // deleteOne() {
+  //
+  // },
   render: function() {
-    console.log("anything");
     let arr = this.props.displayFinally.map(thing => {
-      console.log('thing:', thing);
+      // console.log('thing:', thing);
       // return <li key={thing._id}>{thing.name}&nbsp;{thing.type}&nbsp;{thing.amount}</li>
-      return  <div>
+      return  <div key = {thing._id}>
               <br/><li><b>transaction name: </b>{thing.name}</li>
                    <li><b>type: </b>{thing.type}</li>
                    <li><b>amount: </b>{thing.amount}</li>
+                   <li><button className= "btn btn-danger btn-xs" onClick = {this.deleteOne}>X</button></li>
                    <hr className = "style-one"/>
               </div>
     })
@@ -87,7 +93,6 @@ const FormSubmit = React.createClass({
   },
 
   render: function() {
-    console.log('this.state', this.state)
     return (
       <div>
       <form onSubmit = {this.wasSubmitted}>

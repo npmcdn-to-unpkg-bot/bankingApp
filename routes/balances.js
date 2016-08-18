@@ -26,4 +26,14 @@ router.post('/', (req, res) => {
   })
 })
 
+router.delete('/:id', (req, res) => {
+  Balance.findByIdAndRemove( req.params.id, (err) => {
+    if(err) {
+      res.status(400).send(err);
+    } else {
+      res.send();
+    }
+  })
+})
+
 module.exports = router;
