@@ -11,7 +11,6 @@ const MainRender = React.createClass({
         return res.json();
       })
       .then(data => {
-        // console.log(data);
         this.setState({transactions : data})
       })
       .catch(err => {
@@ -30,20 +29,30 @@ const MainRender = React.createClass({
       body : JSON.stringify(transactionObj)
     })
     .then(res => {
-      this.setState({transactions : this.state.transactions.concat(transactionObj)})
+      this.getData();
     })
     .catch(err => {
       console.log('err', err);
     })
   },
-  deleteOne() {
-
+  deleteOne(id) {
+    fetch(`/balances/${id}`, {
+      method: 'DELETE'
+    })
+    .then(() => {
+      this.getData();
+    })
+    .catch(err => {
+      console.log('err', err);
+    })
   },
   render: function() {
     return (
       <div>
       <FormSubmit handleSubmit = {this.handleSubmit} />
-      <DisplayData displayFinally = {this.state.transactions}/>
+      <TotalBalances calculateTotals = {this.state.transactions}/>
+      <DisplayData displayFinally = {this.state.transactions} deleteOne={this.deleteOne}/>
+
       </div>
     );
   }
@@ -52,8 +61,8 @@ const MainRender = React.createClass({
 //DisplayDATA---------------------------------------------------------------------------------
 
 const DisplayData = React.createClass({
-  // deleteOne() {
-  //
+  // deleteOne(id) {
+  //   console.log('id',id);
   // },
   render: function() {
     let arr = this.props.displayFinally.map(thing => {
@@ -63,7 +72,9 @@ const DisplayData = React.createClass({
               <br/><li><b>transaction name: </b>{thing.name}</li>
                    <li><b>type: </b>{thing.type}</li>
                    <li><b>amount: </b>{thing.amount}</li>
-                   <li><button className= "btn btn-danger btn-xs" onClick = {this.deleteOne}>X</button></li>
+                   <li><b>date created: </b>{thing.newTime}</li>
+
+                   <li><button className= "btn btn-danger btn-xs" onClick = {this.props.deleteOne.bind(null,thing._id)}>X</button></li>
                    <hr className = "style-one"/>
               </div>
     })
@@ -107,16 +118,41 @@ const FormSubmit = React.createClass({
       <br/>
       <br/>
       <button className = "btn btn-primary btn-xs" type = "submit" >Submit</button>
-      <br/>
-      <br/>
-      <span id = "accBalance"><b>Account Balance: </b></span><br/>
-      <span id = "creditTotal"><b>Credit Total: </b></span><br/>
-      <span id = "accBalance"><b>Account Balance: </b></span><br/>
       </form>
       </div>
     );
   }
 });
+
+//Totals---------------------------------------------------------------------------
+const TotalBalances = React.createClass({
+
+  render: function() {
+    let debit = 0,
+        credit = 0;
+
+    this.props.calculateTotals.forEach(obj => {
+      obj.type === "credit" ? credit += obj.amount : debit += obj.amount;
+    })
+    let bal = credit - debit;
+    if (bal < 0){
+       bal = "Debit: " + (debit - credit);
+    } else if (bal > 0){
+      bal = "Credit: " + (credit - debit);
+    } else {
+
+    }
+    return (
+      <div>
+        <br/>
+        <br/>
+        <span id = "debitTotal"><b>Debit Total: <span>{debit}</span></b></span><br/>
+        <span id = "creditTotal"><b>Credit Total: <span>{credit}</span></b></span><br/>
+        <span id = "accBalance"><b>Account Balance: <span>{bal}</span></b></span><br/>
+      </div>
+    )
+  }
+})
 
 
 ReactDOM.render(
